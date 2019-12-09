@@ -16,10 +16,10 @@ Sooo, how to send messages?The Query class will help us with it.Check example:
 	$bot = new Bot('BOT_API_KEY HERE', $CHAT_ID_HERE);
 	
 	Query::send($bot //Our bot class
-						,'sendMessage', //Telegram bot API method
-					[
-							'text' => 'Hi!How are you?' //Method parameter
-					]
+			,'sendMessage', //Telegram bot API method
+		[
+			'text' => 'Hi!How are you?' //Method parameter
+		]
 	);
 	
 And it's all!Yes, it's really all, what touch about sending messages.
@@ -54,14 +54,14 @@ Let's see how:
 	
 	$bot = new Bot('BOT_API_KEY_HERE', $CHAT_ID_HERE);
 	
-	if(!Option::value($bot, 'read', $data->message->chat->id)){
+	if(!Option::value($bot, 'read', $chat_id)){
 		Query::send($bot
 				,'sendMessage',
 			[
 				'text' => 'Write smth'
 			]
 		);
-		Option::value($bot, 'write', $data->message->chat->id, 'smth');
+		Option::value($bot, 'write', $chat_id, 'smth');
 	}else{
 		Query::send($bot
 				,'sendMessage',
@@ -86,4 +86,15 @@ Okay, last one argument "delete" just delete your context.
 It all you need know about basics of this library.If you want to know more, check the code.
 Oh, and files ORM.php and Logger.php incompleted, dont use them
 
-See you soon!
+Bot.php
+
+getToken() - return bot token.
+
+standartChatId($act["get", "set"]) - returns a chat id, or sets new.
+
+create($act["keyboard", "inline_keyboard"], $data) - easy way to create keyboards.
+Examples:
+	keyboard - $bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
+	inline keyboard - keyboard - $bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ])
+	
+Query
