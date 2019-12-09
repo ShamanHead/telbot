@@ -148,11 +148,13 @@ Usually used if you want to sent document from your dedicated server.Example, pl
 		]
 	);
 
+Rest methods used only in Query.php and don't means to use outside of this file.
+
 Addons
 
-Option.php
+Name: Option.php
 Discription: Standart library addon, used to create a context into messages.
-Functions:
+Function:
 
 	static function value($bot, $act, $unique, $param1 = false) //Main function
 	
