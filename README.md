@@ -83,18 +83,66 @@ If you choose write, in the last argument of method you can write value, to crea
 Please, be careful, when you has more than one context in your script.Always delete context if he is no longer needed!
 Okay, last one argument "delete" just delete your context.
 	
+Full code of this example you can find in telbot/example.php	
+
 It all you need know about basics of this library.If you want to know more, check the code.
 Oh, and files ORM.php and Logger.php incompleted, dont use them
 
 Bot.php
 
-getToken() - return bot token.
+	getToken() //return bot token.
 
-standartChatId($act["get", "set"]) - returns a chat id, or sets new.
+	standartChatId($act["get", "set"]) //returns a chat id, or sets new.
 
 create($act["keyboard", "inline_keyboard"], $data) - easy way to create keyboards.
 Examples:
-	keyboard - $bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
-	inline keyboard - keyboard - $bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ])
+
+	$bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
+	$bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ])
 	
-Query
+	Query::send($bot
+			,'sendMessage',
+		[
+			'text' => 'Okay, you writed!',
+			'reply_markup' => ['inliner_keyboard' => $bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ]),
+				 'keyboard' => $bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])]
+		]
+	);
+	
+Query.php
+
+	send($bot, $method, $data) //sending request
+	
+Example:
+	
+	Query::send($bot
+			,'sendMessage',
+		[
+			'text' => 'Okay, you writed!',
+			'reply_markup' => ['inliner_keyboard' => $bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ]),
+				 'keyboard' => $bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])]
+		]
+	);
+	
+Usually method send() gets chat_id specified by Bot's standartChatId() or on creating bot( $bot = new Bot('BOT_API_KEY HERE', $CHAT_ID_HERE) ) but if you want to set specific chat_id, you can use:
+
+	Query::send($bot
+			,'sendMessage',
+		[
+			'text' => 'Text here.',
+			'chat_id' => 'Some chat id here'
+		]
+	);
+
+	encodeFile($file) //Encoded file into CURLFile type
+	
+Usually used if you want to sent document from your dedicated server.Example, please:
+	
+	Query::send($bot
+			,'sendPhoto',
+		[
+			'photo' => Query::encodeFile('path')
+		]
+	);
+	
+Option.php
