@@ -26,20 +26,20 @@ And it's all!Yes, it's really all, what touch about sending messages.
 If you want to send photo, use it:
 	
 	Query::send($bot
-						,'sendPhoto',
-					[
-							'photo' => 'photo_id or file'
-					]
+			,'sendPhoto',
+		[
+			'photo' => 'photo_id or file'
+		]
 	);
 	
 Warning: if parameter of the method isn't exitst, his just deleted automatically by telegram server.You can't do so:
 (I checked this)
 
 	Query::send($bot
-						,'sendMessage',
-					[
-							'photo' => 'photo_id or file'
-					]
+			,'sendMessage',
+		[
+			'photo' => 'photo_id or file'
+		]
 	);
 
 And It's working for all Telegram bot API's methods
@@ -56,28 +56,31 @@ Let's see how:
 	
 	if(!Option::value($bot, 'read', $data->message->chat->id)){
 		Query::send($bot
-						,'sendMessage',
-					[
-							'text' => 'Write smth'
-					]
+				,'sendMessage',
+			[
+				'text' => 'Write smth'
+			]
 		);
 		Option::value($bot, 'write', $data->message->chat->id, 'smth');
 	}else{
 		Query::send($bot
-						,'sendMessage',
-					[
-							'text' => 'Okay, you writed!'
-					]
+				,'sendMessage',
+			[
+				'text' => 'Okay, you writed!'
+			]
 		);
 		Option::value($bot, 'delete', $data->message->chat->id, 'smth');
 	}
 	
 Okay, it was hard(or not).But how it works?
-Static method option::value has 3 parameters: your bot class, action and user chat_id
+Static method option::value has 3 parameters: your bot class, action , user chat_id and additional parameter for "write"
+
 About first all clear, but what do second?He has three statements: "read", "write", "delete"
 When you choosing read, method reading special file and gives out his value(in example "smth")
 You can use it to check, is there a context or not.
+
 If you choose write, in the last argument of method you can write value, to create context.
 Please, be careful, when you has more than one context in your script.Always delete context if he is no longer needed!
 Okay, last one argument "delete" just delete your context.
 	
+It all you need know about library at this time.See you soon!
