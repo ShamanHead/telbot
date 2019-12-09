@@ -92,9 +92,10 @@ Bot.php
 
 	getToken() //return bot token.
 
-	standartChatId($act["get", "set"]) //returns a chat id, or sets new.
+	function standartChatId($act["get", "set"], $id = false) //returns a chat id, or sets new.
 
-create($act["keyboard", "inline_keyboard"], $data) - easy way to create keyboards.
+	function create($act["keyboard", "inline_keyboard"], $data) - easy way to create keyboards.
+	
 Examples:
 
 	$bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
@@ -111,7 +112,7 @@ Examples:
 	
 Query.php
 
-	send($bot, $method, $data) //sending request
+	static function send($bot , $method, $data) //sending request
 	
 Example:
 	
@@ -134,7 +135,9 @@ Usually method send() gets chat_id specified by Bot's standartChatId() or on cre
 		]
 	);
 
-	encodeFile($file) //Encoded file into CURLFile type
+Next method:
+
+	static function encodeFile($file) //Encoded file into CURLFile type
 	
 Usually used if you want to sent document from your dedicated server.Example, please:
 	
@@ -144,5 +147,17 @@ Usually used if you want to sent document from your dedicated server.Example, pl
 			'photo' => Query::encodeFile('path')
 		]
 	);
-	
+
+Addons
+
 Option.php
+Discription: Standart library addon, used to create a context into messages.
+Functions:
+
+	static function value($bot, $act, $unique, $param1 = false) //Main function
+	
+How to use:
+	
+	Option::value($bot, "write", chat_id, "Some context here") // to create a new context
+	Option::value($bot, "read", chat_id) // to read some created context(returns 0 if it isn't exist)
+	Option::value($bot, "delete", chat_id) //to delete context
