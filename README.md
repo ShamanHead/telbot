@@ -7,7 +7,7 @@ How to create bot?Very easy!Just create a new bot class:
 
 	$bot = new Bot('BOT_API_KEY HERE', $CHAT_ID_HERE);
 
-Okay!It's work(If it's dont work, check your code.If it's isn't help, check examples)
+Okay!It's work(If it's dont work, check your code.If it isn't help, check examples)
 Sooo, how to send messages?The Query class will help us with it.Check example:
 
 	use \Telegram\Bot as Bot;
