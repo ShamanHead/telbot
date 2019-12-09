@@ -83,4 +83,7 @@ If you choose write, in the last argument of method you can write value, to crea
 Please, be careful, when you has more than one context in your script.Always delete context if he is no longer needed!
 Okay, last one argument "delete" just delete your context.
 	
-It all you need know about library at this time.See you soon!
+It all you need know about basics of this library.If you want to know more, check the code.
+Oh, and files ORM.php and Logger.php incompleted, dont use them
+
+See you soon!
