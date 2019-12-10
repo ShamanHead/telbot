@@ -52,21 +52,22 @@ Let's see how:
 	use \Telegram\Bot as Bot;
 	use \Telegram\Query as Query;
 	
-	$bot = new Bot('BOT_API_KEY_HERE', $CHAT_ID_HERE);
-	
-	if(!Option::value($bot, 'read', $chat_id)){
+	$data = json_decode(file_get_contents('php://input'));
+	$bot = new Bot('927752546:AAGAnR8H_Aly22V-fIJEVE8srmRTzd_piYs', $data->message->chat->id);
+
+	if(!Option::value($bot, 'read', $data->message->chat->id)){
 		Query::send($bot
 				,'sendMessage',
 			[
 				'text' => 'Write smth'
 			]
 		);
-		Option::value($bot, 'write', $chat_id, 'smth');
+		Option::value($bot, 'write', $data->message->chat->id, 'smth');
 	}else{
 		Query::send($bot
-				,'sendMessage',
+			,'sendMessage',
 			[
-				'text' => 'Okay, you writed!'
+			'text' => 'Okay, you writed!'
 			]
 		);
 		Option::value($bot, 'delete', $data->message->chat->id, 'smth');
