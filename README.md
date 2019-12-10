@@ -32,7 +32,7 @@ If you want to send photo, use it:
 		]
 	);
 	
-Warning: if parameter of the method isn't exitst, his just deleted automatically by telegram server.You can't do so:
+Warning: if parameter of the method isn't exitst, his just gets ignored by telegram server.You can't do so:
 (I checked this)
 
 	Query::send($bot
@@ -99,18 +99,29 @@ Bot.php
 	
 Examples:
 
-	$bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
-	$bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ])
+	$bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ]) //Example
 	
 	Query::send($bot
-			,'sendMessage',
+		,'sendMessage',
 		[
 			'text' => 'Okay, you writed!',
-			'reply_markup' => ['inliner_keyboard' => $bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ]),
-				 'keyboard' => $bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])]
+			'reply_markup' => ['inline_keyboard' => $bot->create('inline_keyboard', [ ['Smth'] , ['smth2'] ])
+				 ]
 		]
 	);
 	
+Or just keyboard:
+
+	$bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ]) //Example
+	
+	Query::send($bot
+		,'sendMessage',
+		[
+			'text' => 'Okay, you writed!',
+			'reply_markup' => ['keyboard' => $bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
+				 ]
+		]
+	);
 Query.php
 
 	static function send($bot , $method, $data) //sending request
@@ -121,8 +132,7 @@ Example:
 			,'sendMessage',
 		[
 			'text' => 'Okay, you writed!',
-			'reply_markup' => ['inliner_keyboard' => $bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ]),
-				 'keyboard' => $bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])]
+			'reply_markup' => ['inliner_keyboard' => $bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ])
 		]
 	);
 	
