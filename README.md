@@ -95,7 +95,7 @@ Bot.php
 
 	function standartChatId($act["get", "set"], $id = false) //returns a chat id, or sets new.
 
-	function create($act["keyboard", "inline_keyboard"], $data) - easy way to create keyboards.
+	function createKeyboard($act["keyboard", "inline_keyboard"], $data) - easy way to create keyboards.
 	
 Examples:
 
