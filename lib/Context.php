@@ -7,7 +7,7 @@
 *	Mail: arsenii.romanovskii85@gmail.com	     	  *
 *							  *
 **********************************************************/
-namespace Telegram\Addons;
+namespace Telegram;
 
 class Context{
 	static function read($bot, $uniqueParameter) : string{
