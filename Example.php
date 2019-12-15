@@ -28,7 +28,7 @@ if(!Option::value($bot, 'read', $data->message->chat->id)){
 		,'sendMessage',
 		[
 			'text' => 'Okay, you writed!',
-			'reply_markup' => ['keyboard' => $bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])]
+			'reply_markup' => ['keyboard' => $bot->createKeyboard('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])]
 		]
 	);
 	Option::value($bot, 'delete', $data->message->chat->id, 'smth');

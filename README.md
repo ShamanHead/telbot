@@ -99,7 +99,7 @@ Bot.php
 	
 Examples:
 
-	$bot->create('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ]) //Example
+	$bot->createKeyboard('inline_keyboard', [ [ ['Smth'] ], [ ['smth2'] ] ]) //Example
 	
 	Query::send($bot
 		,'sendMessage',
@@ -112,7 +112,7 @@ Examples:
 	
 Or just keyboard:
 
-	$bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ]) //Example
+	$bot->createKeyboard('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ]) //Example
 	
 	Query::send($bot
 		,'sendMessage',
