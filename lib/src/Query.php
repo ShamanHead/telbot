@@ -13,7 +13,7 @@ use CURLFile;
 
 class Query {
 
-	private static $can_query = [
+	private static $canSended = [
 		/*'send' => [*/'sendmessage',
 				   'sendaudio',
 				   'sendphoto',
@@ -34,25 +34,25 @@ class Query {
 	];
 
 	static function send($bot , $method, $data) {
-		for($i = 0;$i < count(self::$can_query);$i++) {
-			if(strcasecmp(self::$can_query[$i], $method) == false) break;
-			if($i == count(self::$can_query) - 1 && strcasecmp(self::$can_query[$i], $method) == false) return false;
+		for($i = 0;$i < count(self::$canSended);$i++) {
+			if(strcasecmp(self::$canSended[$i], $method) == false) break;
+			if($i == count(self::$canSended) - 1 && strcasecmp(self::$canSended[$i], $method) == false) return false;
 		}
 
 		$url = 'https://api.telegram.org/bot'.$bot->getToken().'/'.$method.'?';
 		
-		$chat_id_existed = false;
+		$chatIdExisted = false;
 		foreach($data as $key=>$value) {
 			switch($key) {
 				case 'reply_markup':
 					$data['reply_markup'] = json_encode($value, JSON_UNESCAPED_UNICODE);
 					break;
 				case 'chat_id':
-					$chat_id_existed = true;
+					$chatIdExisted = true;
 					break;
 			}
 		}
-		if($chat_id_existed == false){
+		if($chatIdExisted == false){
 			$data['chat_id'] = $bot->standartChatId('get');
 		}
 		self::query($url, $data);
@@ -63,13 +63,13 @@ class Query {
 		return $fb;
 	}
 
-	private static function query($url, $post_fields, $mode = false) {
+	private static function query($url, $postFields, $mode = false) {
 		$ch = curl_init();
 
 	    curl_setopt($ch, CURLOPT_HEADER, 0);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	    curl_setopt($ch, CURLOPT_URL, $url);
-	    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
+	    curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
 	    curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type:multipart/form-data"));
 
 	    $data = curl_exec($ch);

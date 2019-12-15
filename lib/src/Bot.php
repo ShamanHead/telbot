@@ -12,11 +12,11 @@ namespace Telegram;
 class Bot {
 	private $token = 0;
 	var $version = 'dev';
-	private $standart_chat_id = 0;
+	private $standartChatId = 0;
 
-	function __construct($token, $standart_chat_id) {
+	function __construct($token, $standartChatId) {
 		$this->token = $token;
-		$this->standart_chat_id = $standart_chat_id;
+		$this->standartChatId = $standartChatId;
 	}
 
 	function getToken(){
@@ -26,16 +26,16 @@ class Bot {
 	function standartChatId($act, $id = false) { 
 		switch($act){
 			case 'get':
-				return $this->standart_chat_id;
+				return $this->standartChatId;
 				break;
 			case 'set':
-				$this->standart_chat_id = $id;
+				$this->standartChatId = $id;
 				return true;
 				break;
 		}
 	}
 
-	function create($act, $data) {
+	function createKeyboard($act, $data) {
 		switch($act) {
 			case 'keyboard':
 				$kbd = [];

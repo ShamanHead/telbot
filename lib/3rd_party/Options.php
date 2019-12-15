@@ -10,12 +10,12 @@
 namespace Telegram\Addons;
 
 class Option{
-	static function value($bot, $act, $unique, $param1 = false) {
+	static function value($bot, $act, $uniqueParameter, $param1 = false) {
 		if ( !file_exists('lib/3rd_party/other/buffer') && !is_dir('lib/3rd_party/other/buffer') ) {
     		mkdir('lib/3rd_party/other/buffer');       
 		} 
 
-		$url = 'lib/3rd_party/other/buffer/bot'.$bot->getToken().'_'.$unique.'.txt';
+		$url = 'lib/3rd_party/other/buffer/bot'.$bot->getToken().'_'.$uniqueParameter.'.txt';
 		$file = fopen($url, 'c+');
 
 		switch($act){
