@@ -55,14 +55,14 @@ Let's see how:
 	$data = json_decode(file_get_contents('php://input'));
 	$bot = new Bot('927752546:AAGAnR8H_Aly22V-fIJEVE8srmRTzd_piYs', $data->message->chat->id);
 
-	if(!Option::value($bot, 'read', $data->message->chat->id)){
+	if(!Context::read($bot, $data->message->chat->id)){
 		Query::send($bot
 				,'sendMessage',
 			[
 				'text' => 'Write smth'
 			]
 		);
-		Option::value($bot, 'write', $data->message->chat->id, 'smth');
+		Option::write($bot, $data->message->chat->id, 'smth');
 	}else{
 		Query::send($bot
 			,'sendMessage',
@@ -70,7 +70,7 @@ Let's see how:
 			'text' => 'Okay, you writed!'
 			]
 		);
-		Option::value($bot, 'delete', $data->message->chat->id, 'smth');
+		Option::delete($bot, $data->message->chat->id);
 	}
 	
 Okay, it was hard(or not).But how it works?

@@ -28,7 +28,7 @@ class Context{
 		$url = 'lib/other/buffer/bot'.$bot->getToken().'_'.$uniqueParameter.'.txt';
 		$file = fopen($url, 'c+');
 
-		fwrite($file, $param1);
+		fwrite($file, $contextValue);
 
 		fclose($file);
 	}
