@@ -48,7 +48,7 @@ Okay, but what if I want to send message according to context?
 Yes, you can do this with standart addon, named Option.
 Let's see how:
 
-	use \Telegram\Addons\Option as Option; //We include new class Option
+	use \Telegram\Addons\Context as Context; //We include new class Context
 	use \Telegram\Bot as Bot;
 	use \Telegram\Query as Query;
 	
@@ -62,7 +62,7 @@ Let's see how:
 				'text' => 'Write smth'
 			]
 		);
-		Option::write($bot, $data->message->chat->id, 'smth');
+		Context::write($bot, $data->message->chat->id, 'smth');
 	}else{
 		Query::send($bot
 			,'sendMessage',
@@ -70,7 +70,7 @@ Let's see how:
 			'text' => 'Okay, you writed!'
 			]
 		);
-		Option::delete($bot, $data->message->chat->id);
+		Context::delete($bot, $data->message->chat->id);
 	}
 	
 Okay, it was hard(or not).But how it works?
