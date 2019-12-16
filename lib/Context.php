@@ -14,7 +14,7 @@ class Context{
 		if ( !file_exists('lib/other/buffer') && !is_dir('lib/other/buffer') ) {
     		mkdir('lib/other/buffer');       
 		} 
-
+		
 		$url = 'lib/other/buffer/bot'.$bot->getToken().'_'.$uniqueParameter.'.txt';
 
 		return file_get_contents($url);
@@ -22,7 +22,7 @@ class Context{
 
 	static function write($bot, $uniqueParameter, $contextValue) : void{
 		if ( !file_exists('lib/other/buffer') && !is_dir('lib/other/buffer') ) {
-    		mkdir('lib/other/buffer');       
+    		mkdir('lib/other/buffer');
 		} 
 
 		$url = 'lib/other/buffer/bot'.$bot->getToken().'_'.$uniqueParameter.'.txt';
