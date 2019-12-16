@@ -160,15 +160,3 @@ Usually used if you want to sent document from your dedicated server.Example, pl
 	);
 
 Rest methods used only in Query.php and don't means to use outside of this file.
-
-Context
-With this class you can create a context into messages.
- 
-
-	static function value($bot, $act, $unique, $param1 = false) //Main function
-	
-How to use:
-	
-	Option::value($bot, "write", chat_id, "Some context here") // to create a new context
-	Option::value($bot, "read", chat_id) // to read some created context(returns 0 if it isn't exist)
-	Option::value($bot, "delete", chat_id) //to delete context
