@@ -7,8 +7,8 @@
 	<li>
 		<a href = '#utils'>Utils</a>
 		<ul>
-			<li>Context</li>
-			<li>Creating Keyboard</li>
+			<li><a href="#utils_context">Context</a></li>
+			<li><a href="#utils_keyboard">Creating Keyboard</a></li>
 		</ul>
 	</li>
 	<li><a href = '#mysql_features'>Mysql features</a></li>
@@ -69,9 +69,9 @@ Supported Methods:
 	getchatmemberscount
 	getme
 
-<b href='#utils'>Utils</b>
+<b id='utils'>Utils</b>
 
-<b href='#utils_context'>Context<b>
+<b id='utils_context'>Context<b>
 Using class Context from Utils namespace you can create context dependence:
 
 	use \Telegram\Utils\Context as Context; //We include new class Context
@@ -109,7 +109,7 @@ You can create keyboards easy using this way:
 	$bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
 	$bot->create('inline_keyboard', [ [ ['Smth'], ['Smth2'] ] ])
 
-<b>Mysql features</b>
+<b id='mysql_features'>Mysql features</b>
 
 To start work with mysql, first you need to do is enable sql connection in your bot object:
 
