@@ -7,13 +7,16 @@
 *	Mail: arsenii.romanovskii85@gmail.com	     	  *
 *							  *
 **********************************************************/
-namespace Telegram;
+namespace Telbot;
 
 use CURLFile;
+use PDO as PDO;
 
 class Query {
 
-	private static $canSended = [
+	static function send($bot , $method, $data) {
+
+		$canSended = [
 		/*'send' => [*/'sendmessage',
 				   'sendaudio',
 				   'sendphoto',
@@ -31,16 +34,22 @@ class Query {
 		          'getchatmember',
 		          'getchatmemberscount',
 		          'getme'/*]*/
-	];
-
-	static function send($bot , $method, $data) {
-		for($i = 0;$i < count(self::$canSended);$i++) {
-			if(strcasecmp(self::$canSended[$i], $method) == false) break;
-			if($i == count(self::$canSended) - 1 && strcasecmp(self::$canSended[$i], $method) == false) return false;
-		}
+		];
 
 		$url = 'https://api.telegram.org/bot'.$bot->getToken().'/'.$method.'?';
 		
+		$finded = false;
+
+		for($i = 0;$i < count($canSended);$i++){
+			if(strcasecmp($method,$canSended[$i]) == 0){
+				$finded = true;
+			}
+		}
+
+		if($finded == false){
+			return new \Error('Unknown telegram method');
+		}
+
 		$chatIdExisted = false;
 		foreach($data as $key=>$value) {
 			switch($key) {
@@ -52,9 +61,11 @@ class Query {
 					break;
 			}
 		}
+
 		if($chatIdExisted == false){
 			$data['chat_id'] = $bot->standartChatId('get');
 		}
+
 		self::query($url, $data);
 	}
 
@@ -85,6 +96,113 @@ class Query {
 	    		break;
 	    }
 	}
+
+	private static function createTable($bot) {
+		$DBH = $bot->pdoConnection;
+
+		$DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+
+		$tableCreator = $DBH->prepare("CREATE TABLE IF NOT EXISTS bot(
+						id INT(11) AUTO_INCREMENT Primary Key,
+						userId VARCHAR(50) NOT NULL Unique,
+						botToken VARCHAR(50) NOT NULL
+						)
+						");
+
+		$tableCreator->execute();
+
+		$DBH = null;
+	}
+
+	public static function addUser($bot, $userId) {
+		if(!$bot->sqlConnectionPosibility) return false;
+
+		$DBH = $bot->pdoConnection;
+
+		if(!self::getUser($bot, $userId)){
+			$addUser = $DBH->prepare("INSERT INTO bot (userId, botToken) VALUES (:userId, :botToken)");
+
+			$token = $bot->getToken();
+
+			$addUser->bindParam(':userId', $userId);
+			$addUser->bindParam(':botToken', $token);
+
+			$addUser->execute();
+		}
+
+		$DBH = null;
+	}
+
+	public static function getUser($bot, $userId) {
+		if(!$bot->sqlConnectionPosibility) return false;
+
+		$DBH = $bot->pdoConnection;
+
+		$searchUser = $DBH->prepare("SELECT * FROM bot WHERE botToken = :botToken AND userId = :userId");
+
+		$searchUser->bindParam(':userId', $userId);
+		$searchUser->bindParam(':botToken', $token);
+
+		$searchUser->setFetchMode(PDO::FETCH_ASSOC);
+
+		$token = $bot->getToken();
+
+		$searchUser->execute();
+
+		$DBH = null;
+
+		return $searchUser->fetchAll();
+	}
+
+	public static function getAllUsers($bot) {
+		if(!$bot->sqlConnectionPosibility) return false;
+
+		$DBH = $bot->pdoConnection;
+
+		$getAllUsers = $DBH->prepare("SELECT * FROM bot WHERE botToken = :botToken");
+
+		$getAllUsers->bindParam(':botToken', $token);
+
+		$token = $bot->getToken();
+
+		$getAllUsers->setFetchMode(PDO::FETCH_ASSOC);
+
+		$getAllUsers->execute();
+
+		return $getAllUsers->fetchAll();
+	}
+
+	public static function deleteUser($bot, $userId) {
+		if(!$bot->sqlConnectionPosibility) return false;
+
+		$DBH = $bot->pdoConnection;
+
+		$token = $bot->getToken();
+
+		$deleteUser = $DBH->prepare('DELETE FROM bot WHERE userId = :userId AND botToken = :botToken');
+
+		$deleteUser->bindParam(':userId', $userId);
+		$deleteUser->bindParam(':botToken', $token);
+
+		$deleteUser->execute();
+
+		$DBH = null;
+	}
+
+	public static function sendToAllActiveChats($bot, $method, $data){
+		if(!$bot->sqlConnectionPosibility) return false;
+
+		$allUsers = self::getAllUsers($bot);
+
+		for($i = 0;$i < count($allUsers);$i++){
+			$data['chat_id'] = $allUsers[$i]['userId'];
+			self::send($bot, $method, $data);
+		}
+
+		$DBH = null;
+	}
+
+
 }
 
 ?>

@@ -7,23 +7,24 @@
 *	Mail: arsenii.romanovskii85@gmail.com	     	  *
 *							  *
 **********************************************************/
-namespace Telegram;
+namespace Telbot;
 
 class Bot {
 	private $token = 0;
-	var $version = 'dev';
 	private $standartChatId = 0;
+	public $sqlConnectionPosibility = false;
+	public $pdoConnection;
 
 	function __construct($token, $standartChatId) {
 		$this->token = $token;
 		$this->standartChatId = $standartChatId;
 	}
 
-	function getToken(){
+	public function getToken() : string{
 		return $this->token;
 	}
 
-	function standartChatId($act, $id = false) { 
+	public function standartChatId($act, $id = false){ 
 		switch($act){
 			case 'get':
 				return $this->standartChatId;
@@ -35,30 +36,26 @@ class Bot {
 		}
 	}
 
-	function createKeyboard($act, $data) {
-		switch($act) {
-			case 'keyboard':
-				$kbd = [];
-				for($i = 0;$i<count($data);$i++){
-					array_push($kbd, []);
-					for($j = 0;$j<count($data[$i]);$j++){
-						array_push($kbd[$i], [ 'text' => $data[$i][$j][0] ]);
-					}
-				}
-				return $kbd;
-				break;
-			case 'inline_keyboard':
-				$kbd = [];
-				for($i = 0;$i<count($data);$i++){
-					array_push($kbd, []);
-					for($j = 0;$j<count($data[$i]);$j++){
-						array_push($kbd[$i], [ 'text' => $data[$i][$j][0], 'callback_data' =>  $data[$i][$j][1]]);
-					}
-				}
-				return $kbd;
-				break;
+	public function enableSql() : void{
+		$this->sqlConnectionPosibility = true;
+	}
+
+	public function disableSql() : void{
+		$this->sqlConnectionPosibility = false;
+	}
+
+	public function sqlCredentials($credentials) : void{
+		try{
+		$this->pdoConnection = new \PDO('mysql:host='.$credentials['database_server'].';dbname='.$credentials['database_name'], $credentials['username'], $credentials['password']);
+		}catch(PDOException $e){
+			$e->getMessage();
 		}
 	}
+
+	public function externalPDO(\PDO $pdo) : void {
+		$this->pdoConnection = $pdo;
+	}
+
 }
 
 ?>

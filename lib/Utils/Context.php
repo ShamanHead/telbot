@@ -7,7 +7,7 @@
 *	Mail: arsenii.romanovskii85@gmail.com	     	  *
 *							  *
 **********************************************************/
-namespace Telbot;
+namespace Telbot\Utils;
 
 class Context{
 	static function read($bot, $uniqueParameter) : string{
