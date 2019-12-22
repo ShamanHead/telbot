@@ -72,6 +72,7 @@ Supported Methods:
 <b id='utils'>Utils</b>
 
 <b id='utils_context'>Context</b>
+
 Using class Context from Utils namespace you can create context dependence:
 
 	use \Telegram\Utils\Context as Context; //We include new class Context
