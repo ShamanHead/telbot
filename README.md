@@ -139,7 +139,6 @@ To add user to database, you need to use this function:
 
 	Query::addUser($bot, $chatId);
 
-<<<<<<< HEAD
 To delete user:
 
 	Query::deleteUser($bot, $chatId);
