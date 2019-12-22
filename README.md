@@ -138,6 +138,7 @@ To add user to database, you need to use this function:
 
 	Query::addUser($bot, $chatId);
 
+<<<<<<< HEAD
 To delete user:
 
 	Query::deleteUser($bot, $chatId);
@@ -158,3 +159,6 @@ You can send message to all active chats by using this function:
 
 Data variable contains method parameters(for help see <a href='#sending_queries'>sending queries</a>)
 
+=======
+Rest methods used only in Query.php and don't means to use outside of this file.
+>>>>>>> d2ec38b8772a8fee0681dd3785ea46d47f054948
