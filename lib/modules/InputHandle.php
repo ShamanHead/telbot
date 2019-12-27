@@ -1,4 +1,5 @@
 <?php
+
 /**********************************************************
 *							  *
 *	Copyright© Arseniy Romanovskiy aka ShamanHead     *
@@ -8,9 +9,19 @@
 *							  *
 **********************************************************/
 
-abstract class Entity{
-	private function searchInData();
-	public function send();
+namespace Telbot
+
+class InputHandle{
+
+	private $inputData;
+
+	function __construct(){
+		$this->inputData = json_decode(file_get_contents('php://input'));
+	}
+
+	function __clone(){}
+
+	public function getChatId
 }
 
 ?>

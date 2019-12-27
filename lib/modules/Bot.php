@@ -15,25 +15,12 @@ class Bot {
 	public $sqlConnectionPosibility = false;
 	public $pdoConnection;
 
-	function __construct($token, $standartChatId) {
+	function __construct($token) {
 		$this->token = $token;
-		$this->standartChatId = $standartChatId;
 	}
 
 	public function getToken() : string{
 		return $this->token;
-	}
-
-	public function standartChatId($act, $id = false){ 
-		switch($act){
-			case 'get':
-				return $this->standartChatId;
-				break;
-			case 'set':
-				$this->standartChatId = $id;
-				return true;
-				break;
-		}
 	}
 
 	public function enableSql() : void{
