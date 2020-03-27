@@ -9,19 +9,6 @@
 
 namespace Telbot;
 
-/*
-	
-Class Bot - main class of library.Needed to to configure telegram bot parameters.
-
-@method __construct(string $token) - sets bot token
-@method getToken() - returns bot token, that you set when construct class
-@method enableSql() - enabling sql
-@method disableSql() - disabling sql
-@method sqlCredentials(array $credentials) - sets sql credentials for sql connection
-@method externalPDO(\PDO $pdo) - sets external pdo connection as sql connection
-
-*/
-
 class Bot {
 	private $token = 0;
 	private $standartChatId = 0;

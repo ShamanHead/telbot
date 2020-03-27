@@ -11,16 +11,6 @@ namespace Telbot;
 
 use \Telbot\User as User;
 
-/*
-
-Class Context - class to create context in your messages.
-
-@method static read(Bot $bot, string $userId)
-@method static write(Bot $bot, string $userId, string $contextValue)
-@method static delete(Bot $bot, string $userId)
-
-*/
-
 class Context{
 	public static function read($bot, $userId){
 
