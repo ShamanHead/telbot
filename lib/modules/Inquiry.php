@@ -1,12 +1,12 @@
 <?php
-/**********************************************************
-*							  *
-*	Copyright© Arseniy Romanovskiy aka ShamanHead     *
-*	This file is part of Telbot package		  *
-*	Created by ShamanHead				  *
-*	Mail: arsenii.romanovskii85@gmail.com	     	  *
-*							  *
-**********************************************************/
+
+/*						  
+	Copyright© Arseniy Romanovskiy aka ShamanHead     
+	This file is part of Telbot package		  
+	Created by ShamanHead				  
+	Mail: arsenii.romanovskii85@gmail.com	     	  						  
+*/
+
 namespace Telbot;
 
 class Inquiry {
@@ -30,7 +30,9 @@ class Inquiry {
 		           'getchat',
 		           'getchatmember',
 		           'getchatmemberscount',
-		           'getme'
+		           'getme',
+		           'sendchataction',
+		           'sendInvoice'
 		];
 
 		$url = 'https://api.telegram.org/bot'.$bot->getToken().'/'.$method.'?';
