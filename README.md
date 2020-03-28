@@ -172,4 +172,4 @@ You can send message to all active chats by using this function:
 
 	User::sendToAllActiveChats($bot, $method, $data);
 
-Data variable contains method parameters(for help see <a href='#sending_queries'>sending queries</a>)
+Data variable contains method parameters<!--(for help see <a href='#sending_queries'>sending queries</a>)
