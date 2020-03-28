@@ -1,4 +1,4 @@
-<!--# telbot
+# telbot
 
 <b>Contents</b>
 <ul>
@@ -11,7 +11,12 @@
 			<li><a href="#utils_keyboard">Creating Keyboard</a></li>
 		</ul>
 	</li>
-	<li><a href = '#mysql_features'>Mysql features</a></li>
+	<li>
+		<a href = '#mysql_features'>Mysql features</a>
+		<ul>
+			<li> <a href="#mysql_users">Users</a>
+		</ul>
+	</li>
 </ul>
 
 <b id='creating_bot'>Creating you bot</b>
@@ -20,18 +25,21 @@ How to create bot?Very easy!Just create a new bot class:
 
 	use \Telbot\Bot as Bot;
 
-	$bot = new Bot('BOT_API_KEY HERE', $CHAT_ID_HERE);
+	$bot = new Bot('BOT_API_KEY HERE');
 	
 Sooo, how to send messages?The Query class will help us with it.Check example:
 
 	use \Telbot\Bot as Bot;
-	use \Telbot\Query as Query;
-	
-	$bot = new Bot('BOT_API_KEY HERE', $CHAT_ID_HERE);
-	
-	Query::send($bot
+	use \Telbot\Inquiry as Inquiry;
+	use \Telbot\InputHandle as InputHandle;
+
+	$bot = new Bot('BOT_API_KEY HERE');
+	$ih = new InputHandle();
+
+	Inquiry::send($bot
 			,'sendMessage',
 		[
+			'chat_id' => $ih->getChatId(),
 			'text' => 'Testing your bot.'
 		]
 	);
@@ -40,9 +48,10 @@ Sooo, how to send messages?The Query class will help us with it.Check example:
 	
 You can send any of telegram method using this pattern:
 
-	Query::send($bot //Our bot class
+	Inquiry::send($bot //Our bot class
 			,'someMethod', //Telegram bot API method
 		[
+			'chat_id' => $ih->getChatId(),
 			'text' => 'Testing your bot.' //Method parameter
 		]
 	);
@@ -61,13 +70,16 @@ Supported Methods:
 	editmessagetext
 	editmessagecaption
 	editmessagemedia
-	editmessagereplymarku
-	getuserprofilephot
+	editmessagereplymarkup
+	getuserprofilephotos
 	getfile
 	getchat
 	getchatmember
 	getchatmemberscount
 	getme
+	sendchataction
+	sendInvoice
+	answercallbackquery
 
 <b id='utils'>Utils</b>
 
@@ -77,23 +89,26 @@ Using class Context from Utils namespace you can create context dependence:
 
 	use \Telegram\Utils\Context as Context; //We include new class Context
 	use \Telegram\Bot as Bot;
-	use \Telegram\Query as Query;
+	use \Telegram\Inquiry as Inquiry;
+	use \Telbot\InputHandle as InputHandle;
 	
 	$data = json_decode(file_get_contents('php://input'));
 	$bot = new Bot('927752546:AAGAnR8H_Aly22V-fIJEVE8srmRTzd_piYs', $data->message->chat->id);
 
 	if(!Context::read($bot, $data->message->chat->id)){ //reading context
-		Query::send($bot
+		Inquiry::send($bot
 				,'sendMessage',
 			[
+				'chat_id' => $ih->getChatId(),
 				'text' => 'Write smth'
 			]
 		);
 		Context::write($bot, $data->message->chat->id, 'smth'); //creating new context
 	}else{
-		Query::send($bot
+		Inquiry::send($bot
 			,'sendMessage',
 			[
+			'chat_id' => $ih->getChatId(),
 			'text' => 'Okay, you writed!'
 			]
 		);
@@ -104,11 +119,11 @@ Using class Context from Utils namespace you can create context dependence:
 
 You can create keyboards easy using this way:
 
-	use \Telegram\Utils\Keyboard as Context; //We include new class Context
+	use \Telegram\Utils\ as Utils;
 	use \Telegram\Bot as Bot;
 
-	$bot->create('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
-	$bot->create('inline_keyboard', [ [ ['Smth'], ['Smth2'] ] ])
+	Utils::buildInlineKeyboard('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
+	Utils::buildKeyboard('inline_keyboard', [ [ ['Smth'], ['Smth2'] ] ])
 
 <b id='mysql_features'>Mysql features</b>
 
@@ -133,28 +148,28 @@ Or you can indicate your external pdo connection as sql credentials:
 
 After all this actions, you can start to work with database.
 
-Adding user to database
+<h3 id = 'mysql_users'>Working with users in database</h3>
 
 To add user to database, you need to use this function:
 
-	Query::addUser($bot, $chatId);
+	User::add($bot, $chatId);
 
 To delete user:
 
-	Query::deleteUser($bot, $chatId);
+	User::delete($bot, $chatId);
 
 To get user:
 
-	Query::getUser($bot, $chatId);
+	User::get($bot, $chatId);
 
 This function returns array with row information of this user(row id, chat id, bot token)
 
 To get all users:
 
-	Query::getAllUsers($bot);
+	User::getAll($bot);
 
 You can send message to all active chats by using this function:
 
-	sendToAllActiveChats($bot, $method, $data);
+	User::sendToAllActiveChats($bot, $method, $data);
 
 Data variable contains method parameters(for help see <a href='#sending_queries'>sending queries</a>)

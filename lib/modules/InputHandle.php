@@ -9,6 +9,18 @@
 
 namespace Telbot;
 
+/*
+
+Class InputHandle - represents data from telegram answer.
+
+@method getUpdateId() - returns an update id of telegram answer
+@method getQueryType() - returns a query type of telegram answer
+@method newChatMember() - returns true if in chat has come new member
+@method getMessageText() - returns a text of telegram answer
+@method 
+
+*/
+
 class InputHandle{
 
 	private $inputData;
