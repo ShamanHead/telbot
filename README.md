@@ -2,7 +2,7 @@
 
 <b>Contents</b>
 <ul>
-	<li><a><b>Introducion</b></a></li>
+	<li><a href = '#introducion'><b>Introducion</b></a></li>
 	<ul>
 		<li><a href = '#creating_bot'>Creating you bot</a></li>
 		<li><a href = '#sending_queries'>Sending queries to telegram</a></li>
@@ -24,6 +24,37 @@
 	<li><a href="#inquiry"><b>Inquiry</b></a></li>
 	<li><a href="#input_handle"><b>InputHandle</b></a></li>
 </ul>
+
+<h2 id = 'introducion'>Introducion</h2>
+
+If you want to create your bot, for the first you need to register him.You can do it with @BotFather.
+Open the dialog with him and write /newbot , like as in this image:
+
+![Снимок](https://user-images.githubusercontent.com/31220669/77857189-c0e6ac80-7204-11ea-9f7b-a6f204143cac.PNG)
+
+![Снимок6](https://user-images.githubusercontent.com/31220669/77857225-eb386a00-7204-11ea-9a2e-7cd4511719e6.PNG)
+
+After that you need to set webhook on your bot.Webhook its a system, who sending queries to your server, if telegram gets one.
+
+Before start creating a webhook you need bot an api token and server.If you dont have a server, you can use <a href="heroku.com">heroku</a> to create one.
+
+You can find your bot api token by writing /mybots, then select your bot, and then select button "API Token".Example:
+
+![Снимок2](https://user-images.githubusercontent.com/31220669/77857239-fe4b3a00-7204-11ea-87b0-7f45defc1170.PNG)
+
+![Снимок 3PNG](https://user-images.githubusercontent.com/31220669/77857243-01dec100-7205-11ea-93fa-50d83bc4670d.PNG)
+
+![Снимок3](https://user-images.githubusercontent.com/31220669/77857248-04411b00-7205-11ea-9e6d-0ae54248e6a3.PNG)
+
+When you finish all this actions, you can set webhook to your bot.For this you need to use bot api method setWebhook:
+
+![Снимок8](https://user-images.githubusercontent.com/31220669/77857325-731e7400-7205-11ea-9130-252cbbb32585.PNG)
+
+Then, if you done all right, you will see this answer:
+
+![Снимок4](https://user-images.githubusercontent.com/31220669/77857285-305c9c00-7205-11ea-9d4e-984c29d116e4.PNG)
+
+After that you can start working with your bot.But how I can work?You can ask me.Lets see, how.
 
 <h2 id='creating_bot'>Creating you bot</h2>
 
