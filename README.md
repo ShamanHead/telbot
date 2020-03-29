@@ -2,31 +2,32 @@
 
 <b>Contents</b>
 <ul>
-	<li><a href="#introducion">Introducion</a></li>
+	<li><a><b>Introducion</b></a></li>
 	<ul>
 		<li><a href = '#creating_bot'>Creating you bot</a></li>
 		<li><a href = '#sending_queries'>Sending queries to telegram</a></li>
 	</ul>
 	<li>
-		<a href = '#utils'>Utils</a>
+		<a href = '#utils'><b>Utils</b></a>
 		<ul>
 			<li><a href="#utils_context">Context</a></li>
 			<li><a href="#utils_keyboard">Creating Keyboard</a></li>
 		</ul>
 	</li>
 	<li>
-		<a href = '#mysql_features'>Mysql features</a>
+		<a href = '#mysql_features'><b>Mysql features</b></a>
 		<ul>
 			<li> <a href="#mysql_users">Users</a>
 			<li> <a href="#mysql_chats">Users</a>
 		</ul>
 	</li>
 	<li>
-		<a href="#inquiry">Inquiry</a>
+		<a href="#inquiry"><b>Inquiry</b></a>
+		<a href="#input_handle"><b>InputHandle</b></a>
 	</li>
 </ul>
 
-<h2 id='creating_bot, introducion'>Creating you bot</h2>
+<h2 id='creating_bot'>Creating you bot</h2>
 
 How to create bot?Very easy!Just create a new bot class:
 
@@ -51,46 +52,9 @@ Sooo, how to send messages?The Query class will help us with it.Check example:
 		]
 	);
 
-<h2 id='sending_queries'>Sending Methods</h2>
-	
-You can send any of telegram method using this pattern:
+<h3 id='utils'>Utils</h3>
 
-	Inquiry::send($bot //Our bot class
-			,'someMethod', //Telegram bot API method
-		[
-			'chat_id' => $InputHandle->getChatId(),
-			'text' => 'Testing your bot.' //Method parameter
-		]
-	);
-
-If telegram method that you writed doesn't exits, you will get an error: "Unknown telegram method"
-
-Supported Methods:
-
-	sendmessage
-	sendaudio
-	sendphoto
-	senddocument
-	sendanimation
-	sendpoll
-	sendvenue
-	editmessagetext
-	editmessagecaption
-	editmessagemedia
-	editmessagereplymarkup
-	getuserprofilephotos
-	getfile
-	getchat
-	getchatmember
-	getchatmemberscount
-	getme
-	sendchataction
-	sendInvoice
-	answercallbackquery
-
-<h2 id='utils'>Utils</h2>
-
-<h2 id='utils_context'>Context</h2>
+<b id='utils_context'>Context</b>
 
 Using class Context from Utils namespace you can create context dependence:
 
@@ -123,7 +87,7 @@ Using class Context from Utils namespace you can create context dependence:
 		Context::delete($bot, $data->message->chat->id); //delete context
 	}
 	
-<h2 id='utils_keyboard'>Creating Keyboard</h2>
+<b id='utils_keyboard'>Creating Keyboard</b>
 
 You can create keyboards easy using this way:
 
@@ -133,7 +97,7 @@ You can create keyboards easy using this way:
 	Utils::buildInlineKeyboard('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
 	Utils::buildKeyboard('inline_keyboard', [ [ ['Smth'], ['Smth2'] ] ])
 
-<h2 id='mysql_features'>Mysql features</h2>
+<h3 id='mysql_features'>Mysql features</h3>
 
 To start work with mysql, first you need to do is enable sql connection in your bot object:
 
@@ -249,7 +213,7 @@ Lets see some examples:
 
 You can send any of telegram methods with this method send.All of this supported.
 
-<h3>Input Handle</h3>
+<h3 id='input_handle'>Input Handle</h3>
 
 This class needs for comfortable work with telegram answer query.
 
@@ -259,3 +223,30 @@ This class needs for comfortable work with telegram answer query.
 
 <b>Working with data</b>
 
+	$InputHandle->getUpdateId() - returns an update id of telegram answer query.
+
+	$InputHandle->getQueryType() - returns a query type of telegram answer query(callback_query,inline_query,message).
+
+	$InputHandle->newChatMember() - returns true when new member comes to telegram chat.
+
+	$InputHandle->getMessageText() - returns a text of message.
+
+	$InputHandle->getChatId() - returns a chat id, where the message come.
+
+	$InputHandle->getInstance() - returns an array of telegram answer.
+
+	$InputHandle->getCallbackData() -  returns a callback data from telegram answer query.
+
+	$InputHandle->getCallBackQueryId() - returns a callback query id from telegram answer query.
+
+	$InputHandle->getInlineQueryId() - returns an inline query in from telegram answer query.
+
+	$InputHandle->getUserId() - returns user id.
+
+	$InputHandle->getChatType() - returns chat type.
+
+	$InputHandle->getChat() - returns chat array from telegram answer query.
+
+	$InputHandle->getDate() - returns date when telegram answer query was send.
+
+	$InputHandle->getEntities() - return message entities from telegram answer query.
