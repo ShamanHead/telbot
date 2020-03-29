@@ -21,10 +21,8 @@
 			<li> <a href="#mysql_chats">Users</a>
 		</ul>
 	</li>
-	<li>
-		<a href="#inquiry"><b>Inquiry</b></a>
-		<a href="#input_handle"><b>InputHandle</b></a>
-	</li>
+	<li><a href="#inquiry"><b>Inquiry</b></a></li>
+	<li><a href="#input_handle"><b>InputHandle</b></a></li>
 </ul>
 
 <h2 id='creating_bot'>Creating you bot</h2>
