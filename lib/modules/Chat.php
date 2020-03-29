@@ -124,6 +124,19 @@ class Chat{
 		return $getAllChats->fetchAll();
 	}
 
+	public static function sendToAll($bot, $method, $data){
+		if(!$bot->sqlConnectionPosibility) return false;
+
+		$allUsers = self::getAllActiveChats($bot);
+
+		for($i = 0;$i < count($allUsers);$i++){
+			$data['chat_id'] = $allUsers[$i]['userId'];
+			self::send($bot, $method, $data);
+		}
+
+		$DBH = null;
+	}
+
 }
 
 ?>
