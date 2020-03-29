@@ -2,7 +2,7 @@
 
 <b>Contents</b>
 <ul>
-	<li>Introducion</li>
+	<li><a href="#introducion">Introducion</a></li>
 	<ul>
 		<li><a href = '#creating_bot'>Creating you bot</a></li>
 		<li><a href = '#sending_queries'>Sending queries to telegram</a></li>
@@ -26,7 +26,7 @@
 	</li>
 </ul>
 
-<h2 id='creating_bot'>Creating you bot</h2>
+<h2 id='creating_bot, introducion'>Creating you bot</h2>
 
 How to create bot?Very easy!Just create a new bot class:
 
