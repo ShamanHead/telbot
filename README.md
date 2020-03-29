@@ -36,7 +36,7 @@ Open the dialog with him and write /newbot , like as in this image:
 
 After that you need to set webhook on your bot.Webhook its a system, who sending queries to your server, if telegram gets one.
 
-Before start creating a webhook you need bot an api token and server.If you dont have a server, you can use <a href="heroku.com">heroku</a> to create one.
+Before start creating a webhook you need bot api token and server.If you dont have a server, you can use <a href="heroku.com">heroku</a> to create one.
 
 You can find your bot api token by writing /mybots, then select your bot, and then select button "API Token".Example:
 
