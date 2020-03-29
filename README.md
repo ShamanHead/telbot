@@ -29,12 +29,15 @@
 
 How to create bot?Very easy!Just create a new bot class:
 
+```php
 	use \Telbot\Bot as Bot;
 
 	$bot = new Bot('BOT_API_KEY HERE');
-	
+```
+
 Sooo, how to send messages?The Query class will help us with it.Check example:
 
+```php
 	use \Telbot\Bot as Bot;
 	use \Telbot\Inquiry as Inquiry;
 	use \Telbot\InputHandle as InputHandle;
@@ -49,6 +52,7 @@ Sooo, how to send messages?The Query class will help us with it.Check example:
 			'text' => 'Testing your bot.'
 		]
 	);
+```
 
 <h3 id='utils'>Utils</h3>
 
@@ -56,6 +60,7 @@ Sooo, how to send messages?The Query class will help us with it.Check example:
 
 Using class Context from Utils namespace you can create context dependence:
 
+```php
 	use \Telegram\Utils\Context as Context; //We include new class Context
 	use \Telegram\Bot as Bot;
 	use \Telegram\Inquiry as Inquiry;
@@ -84,16 +89,19 @@ Using class Context from Utils namespace you can create context dependence:
 		);
 		Context::delete($bot, $data->message->chat->id); //delete context
 	}
-	
+```
+
 <b id='utils_keyboard'>Creating Keyboard</b>
 
 You can create keyboards easy using this way:
 
+```php
 	use \Telegram\Utils\ as Utils;
 	use \Telegram\Bot as Bot;
 
 	Utils::buildInlineKeyboard('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
 	Utils::buildKeyboard('inline_keyboard', [ [ ['Smth'], ['Smth2'] ] ])
+```
 
 <h3 id='mysql_features'>Mysql features</h3>
 
@@ -103,6 +111,7 @@ To start work with mysql, first you need to do is enable sql connection in your 
 
 Later you need to specify sql credentials:
 
+```php
 	$bot->sqlCredentials(
 		[
 			'database_server' => '',
@@ -111,10 +120,13 @@ Later you need to specify sql credentials:
 			'password' => ''
 		]
 		);
+```
 
 Or you can indicate your external pdo connection as sql credentials:
-	
+
+```php
 	$bot->externalPDO($PDO_CONNECTION);
+```
 
 After all this actions, you can start to work with database.
 
@@ -122,26 +134,34 @@ After all this actions, you can start to work with database.
 
 To add user to database, you need to use this function:
 
+```php
 	User::add($bot, $userId);
+```
 
 To delete user:
 
+```php
 	User::delete($bot, $userId);
+```
 
 To get user:
 
+```php
 	User::get($bot, $userId);
+```
 
 This function returns array with row information of this user(row id, chat id, bot token)
 
 To get all users:
 
+```php
 	User::getAll($bot);
-
+```
 You can send message to all active users by using this function:
 
+```php
 	User::sendToAll($bot, $method, $data);
-
+```
 Data variable contains method parameters(for help see <a href='#sending_queries'>sending methods</a>)
 
 <h3 id = 'mysql_chats'>Working with chats in database</h3>
@@ -150,21 +170,29 @@ All the same, but a bit different:
 
 To add chats to database, you need to use this function:
 
+```php
 	Chat::add($bot, $chatId);
+```
 
 To delete chats:
 
+```php
 	Chat::delete($bot, $chatId);
+```
 
 To get chats:
 
+```php
 	Chat::get($bot, $chatId);
+```
 
 This function returns array with row information of this user(row id, chat id, bot token)
 
 To get all chats:
 
+```php
 	Chat::getAll($bot);
+```
 
 <h3 id='inquiry'>Inquiry</h3>
 
@@ -172,7 +200,9 @@ Its the main class in this library.This paragraph shows all capabilities of this
 
 This class has only one method - Inquiry::send().With this method you can send quiries who can contain messages, photos, videos etc.
 
+```php
 	Inquiry::send($bot, $method, $data);
+```
 
 This class, like all library, support all telegram bot api methods.
 With this class you can send both simple text messages and complex answers.
@@ -180,21 +210,26 @@ Lets see some examples:
 
 <b>Sending simple answer</b>
 
+```php
 	Inquiry::send($bot, 'sendMessage', [
 		'chat_id' => $InputHandle->getChatId(),
 		'text' => 'This is a testing message'
 	
 	]);
+```
 
 <b>Sending callback query answer</b>
 
+```php
 	Inquiry::send($bot, 'answerCallbackQuery', [
 		'callback_query_id' => $InputHandle->getCallbackQueryId(),
 		'text' => 'This is a callback answer, who lool like common notification'
 	]);
+```
 
 <b>Sending Inline query answer</b>
 
+```php
 	Inquiry::answerInlineQuery($bot, [
 		'inline_query_id' => $InputHandle->getInlineQueryId(),
 		'results' => [
@@ -208,6 +243,7 @@ Lets see some examples:
 			]
 		]
 	]);
+```
 
 You can send any of telegram methods with this method send.All of this supported.
 
@@ -217,34 +253,37 @@ This class needs for comfortable work with telegram answer query.
 
 <b>Creating a new InputHandle object</b>
 
+```php
 	$InputHanle = new InputHandle();
+```
 
 <b>Working with data</b>
 
-	$InputHandle->getUpdateId() - returns an update id of telegram answer query.
+```php
+	$InputHandle->getUpdateId() // returns an update id of telegram answer query.
 
-	$InputHandle->getQueryType() - returns a query type of telegram answer query(callback_query,inline_query,message).
+	$InputHandle->getQueryType() // returns a query type of telegram answer query(callback_query,inline_query,message).
 
-	$InputHandle->newChatMember() - returns true when new member comes to telegram chat.
+	$InputHandle->newChatMember() // returns true when new member comes to telegram chat.
 
-	$InputHandle->getMessageText() - returns a text of message.
+	$InputHandle->getMessageText() // returns a text of message.
 
-	$InputHandle->getChatId() - returns a chat id, where the message come.
+	$InputHandle->getChatId() // returns a chat id, where the message come.
 
-	$InputHandle->getInstance() - returns an array of telegram answer.
+	$InputHandle->getInstance() // returns an array of telegram answer.
 
-	$InputHandle->getCallbackData() -  returns a callback data from telegram answer query.
+	$InputHandle->getCallbackData() //  returns a callback data from telegram answer query.
 
-	$InputHandle->getCallBackQueryId() - returns a callback query id from telegram answer query.
+	$InputHandle->getCallBackQueryId() // returns a callback query id from telegram answer query.
 
-	$InputHandle->getInlineQueryId() - returns an inline query in from telegram answer query.
+	$InputHandle->getInlineQueryId() // returns an inline query in from telegram answer query.
 
-	$InputHandle->getUserId() - returns user id.
+	$InputHandle->getUserId() // returns user id.
 
-	$InputHandle->getChatType() - returns chat type.
+	$InputHandle->getChatType() // returns chat type.
 
-	$InputHandle->getChat() - returns chat array from telegram answer query.
+	$InputHandle->getChat() // returns chat array from telegram answer query.
 
-	$InputHandle->getDate() - returns date when telegram answer query was send.
+	$InputHandle->getDate() // returns date when telegram answer query was send.
 
-	$InputHandle->getEntities() - return message entities from telegram answer query.
+	$InputHandle->getEntities() // return message entities from telegram answer query.
