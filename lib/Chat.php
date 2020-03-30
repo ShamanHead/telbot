@@ -9,17 +9,6 @@
 
 namespace Telbot;
 
-/*
-
-Class Chat
-
-@method static add(Bot $bot, string $chatId, string $type)
-@method static get(Bot $bot, string $chatId)
-@method static delete(Bot $bot, string $chatId)
-@method static getAll(Bot $bot)
-
-*/
-
 use \PDO as PDO;
 
 class Chat{

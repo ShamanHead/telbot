@@ -10,7 +10,9 @@
 		<a href = '#utils'><b>Utils</b></a>
 		<ul>
 			<li><a href="#utils_context">Context</a></li>
-			<li><a href="#utils_keyboard">Creating Keyboard</a></li>
+			<li><a href="#utils_keyboard">Creating keyboard</a></li>
+			<li><a href="#utils_encoding">Encoding files</a></li>
+			<li><a href="#utils_inline_query_result">Building inline query result</a></li>
 		</ul>
 	</li>
 	<li>
@@ -20,8 +22,25 @@
 			<li> <a href="#mysql_chats">Chats</a>
 		</ul>
 	</li>
-	<li><a href="#inquiry"><b>Inquiry</b></a></li>
-	<li><a href="#input_handle"><b>InputHandle</b></a></li>
+	<li>
+		<a href="#inquiry"><b>Inquiry</b></a>
+		<ul>
+			<li><a href="#inquiry_support">Supported methods</a></li>
+			<li><a href="#inquiry_simple">Sending simple answers</a></li>
+			<li><a href="#inquiry_callback">Sending callback answers</a></li>
+			<li><a href="#inquiry_inline">Sending inline answers</a></li>
+			<li><a href="#inquiry_files">Sending files</a></li>
+		</ul>
+	</li>
+	<li>
+		<a href="#input_handle"><b>InputHandle</b></a>
+		<ul>
+			<li><a href="#input_handle_create">Creating a new InputHandle object</a></li>
+			<li><a href="#input_handle_working">Working with data</a></li>
+		</ul>
+	</li>
+	<li><a href="#examples"><b>Examples</b></a></li>
+	<li><a href="#credits"><b>Credits</b></a></li>
 </ul>
 
 <h2 id = 'introducion'>Introducion</h2>
@@ -35,7 +54,7 @@ Open the dialog with him and write /newbot , like as in this image:
 
 After that you need to set webhook on your bot.Webhook its a system, who sending queries to your server, if telegram gets one.
 
-Before start creating a webhook you need bot api token and server.If you dont have a server, you can use <a href="heroku.com">heroku</a> to create one.
+Before start creating a webhook you need bot api token and server.If you dont have a server, you can use <a href="https://heroku.com">heroku</a> to create one.
 
 You can find your bot api token by writing /mybots, then select your bot, and then select button "API Token".Example:
 
@@ -127,7 +146,7 @@ Using class Context from Utils namespace you can create context dependence:
 
 ![Снимок2](https://user-images.githubusercontent.com/31220669/77940072-cd303f80-72c0-11ea-837e-903d9c83020e.PNG)
 
-<b id='utils_keyboard'>Creating Keyboard</b>
+<b id='utils_keyboard'>Creating keyboard</b>
 
 You can create keyboards easy using this way:
 
@@ -161,6 +180,29 @@ Examples:
 ```
 
 ![Снимок3](https://user-images.githubusercontent.com/31220669/77940081-d02b3000-72c0-11ea-9300-3d035a16625b.PNG)
+
+<h2 id='#utils_encoding'>Encoding files</h2>
+
+If you want to send video or photo to user, you need to encode them to CURl format.For this use this method:
+
+```php
+
+	Utils::encodeFile($filePath) //return encoded CURlfile object.
+
+```
+
+parameter $filePath need to indicate path or href to this file.
+
+<h2 id='utils_inline_query_result'>Building inline query result</h2>
+
+If you want to send an answer to inline query, you need to build answer object.For this use this method:
+
+```php
+
+	Utils::buildInlineQueryResult($resultType ,$data) //returns json encoded array of $data with type of result $resultType
+
+```
+You can check example <a href="#inquiry_inline">here</a>
 
 <h2 id='mysql_features'>Mysql features</h2>
 
@@ -270,17 +312,17 @@ To get all chats:
 
 Its the main class in this library.This paragraph shows all capabilities of this class.
 
-This class has only one method - Inquiry::send().With this method you can send quiries who can contain messages, photos, videos etc.
+This class has only one method - Inquiry::send().With this class you can send both simple text messages and complex answers.
 
 ```php
 	Inquiry::send($bot, $method, $data);
 ```
 
-This class, like all library, support all telegram bot api methods.
-With this class you can send both simple text messages and complex answers.
-Lets see some examples:
+<h2 id='inquiry_support'>Supported methods</h2>
 
-<b>Sending simple answer</b>
+All method supported during version of API 4.7
+
+<h2 id='inquiry_simple'>Sending simple answer</h2>
 
 ```php
 	Inquiry::send($bot, 'sendMessage', [
@@ -290,7 +332,7 @@ Lets see some examples:
 	]);
 ```
 
-<b>Sending callback query answer</b>
+<h2 id='inquiry_callback'>Sending callback query answer</h2>
 
 ```php
 	Inquiry::send($bot, 'answerCallbackQuery', [
@@ -299,7 +341,7 @@ Lets see some examples:
 	]);
 ```
 
-<b>Sending Inline query answer</b>
+<h2 id='inquiry_inline'>Sending Inline query answer</h2>
 
 ```php
 	Inquiry::answerInlineQuery($bot, [
@@ -314,17 +356,55 @@ Lets see some examples:
 
 You can send any of telegram methods with this method send.All of this supported.
 
+<h2 id='inquiry_files'>Sending files</h2>
+
+```php
+	//sending photo
+	use \Telbot\Bot as Bot;
+	use \Telbot\InputHandle as InputHandle;
+	use \Telbot\Inquiry as Inquiry;
+
+	$bot = new Bot('927942575:AAHZpZoG2pBRw25Lw-pPaw8FU15t00Lsf3A');
+	$InputHandle = new InputHandle();
+
+	Inquiry::send($bot ,'sendPhoto', [
+		'chat_id' => $InputHandle->getChatId(),
+		'photo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/1200px-Telegram_2019_Logo.svg.png',
+		'caption' => 'This is an image!So beautiful'
+	]);
+```
+
+To send files from your server, you need to encode file to CURl format.For this, you need to use method <a href="#utils_encoding">Utils::encodeFile</a>.
+
+```php
+
+	use \Telbot\Utils as Utils;
+	use \Telbot\Bot as Bot;
+	use \Telbot\InputHandle as InputHandle;
+	use \Telbot\Inquiry as Inquiry;
+
+	$bot = new Bot('927942575:AAHZpZoG2pBRw25Lw-pPaw8FU15t00Lsf3A');
+	$InputHandle = new InputHandle();
+
+	Inquiry::send($bot ,'sendPhoto', [
+		'chat_id' => $InputHandle->getChatId(),
+		'photo' => Utils::encodeFile('app/something/telegram.png'),
+		'caption' => 'This is an image!So beautiful'
+	]);
+
+```
+
 <h2 id='input_handle'>Input Handle</h2>
 
 This class needs for comfortable work with telegram answer query.
 
-<b>Creating a new InputHandle object</b>
+<h2 id='input_handle_create'>Creating a new InputHandle object</h2>
 
 ```php
 	$InputHanle = new InputHandle();
 ```
 
-<b>Working with data</b>
+<h2 id='input_handle_working'>Working with data</h2>
 
 ```php
 	$InputHandle->getUpdateId() // returns an update id of telegram answer query.
@@ -354,4 +434,13 @@ This class needs for comfortable work with telegram answer query.
 	$InputHandle->getDate() // returns date when telegram answer query was send.
 
 	$InputHandle->getEntities() // return message entities from telegram answer query.
+
+```
+<h2>Examples</h2>
+
+See examples at 'examples' folder.
+
+<h2>License</h2>
+
+Please see the LICENSE included in this repository for a full copy of the MIT license, which this project is licensed under.
 
