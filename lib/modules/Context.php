@@ -9,6 +9,8 @@
 
 namespace Telbot;
 
+require_once('User.php');
+
 use \Telbot\User as User;
 
 /*
@@ -24,7 +26,7 @@ Class Context - class to create context in your messages.
 class Context{
 	public static function read($bot, $userId){
 
-		if(!($bot->sqlConnectionPosibility)) throw new Exception('If you want to use Context your bot must be connected to database');
+		if(!($bot->sqlConnectionPosibility)) throw new \Exception('If you want to use Context your bot must be connected to database');
 
 		User::createTable($bot);
 
@@ -45,7 +47,7 @@ class Context{
 
 	public static function write($bot, $userId, $contextValue) : void{
 		self::delete($bot, $userId);
-		if(!($bot->sqlConnectionPosibility)) throw new Exception('If you want to use Context your bot must be connected to database');
+		if(!($bot->sqlConnectionPosibility)) throw new \Exception('If you want to use Context your bot must be connected to database');
 
 		User::createTable($bot);
 
@@ -67,7 +69,7 @@ class Context{
 	}
 
 	public static function delete($bot, $userId) : bool{
-		if(!($bot->sqlConnectionPosibility)) throw new Exception('If you want to use Context your bot must be connected to database');
+		if(!($bot->sqlConnectionPosibility)) throw new \Exception('If you want to use Context your bot must be connected to database');
 
 		$DBH = $bot->pdoConnection;
 

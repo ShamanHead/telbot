@@ -2,10 +2,9 @@
 
 <b>Contents</b>
 <ul>
-	<li><a><b>Introducion</b></a></li>
+	<li><a href = '#introducion'><b>Introducion</b></a></li>
 	<ul>
 		<li><a href = '#creating_bot'>Creating you bot</a></li>
-		<li><a href = '#sending_queries'>Sending queries to telegram</a></li>
 	</ul>
 	<li>
 		<a href = '#utils'><b>Utils</b></a>
@@ -25,6 +24,37 @@
 	<li><a href="#input_handle"><b>InputHandle</b></a></li>
 </ul>
 
+<h2 id = 'introducion'>Introducion</h2>
+
+If you want to create your bot, for the first you need to register him.You can do it with @BotFather.
+Open the dialog with him and write /newbot , like as in this image:
+
+![Снимок](https://user-images.githubusercontent.com/31220669/77857189-c0e6ac80-7204-11ea-9f7b-a6f204143cac.PNG)
+
+![Снимок6](https://user-images.githubusercontent.com/31220669/77857225-eb386a00-7204-11ea-9a2e-7cd4511719e6.PNG)
+
+After that you need to set webhook on your bot.Webhook its a system, who sending queries to your server, if telegram gets one.
+
+Before start creating a webhook you need bot api token and server.If you dont have a server, you can use <a href="heroku.com">heroku</a> to create one.
+
+You can find your bot api token by writing /mybots, then select your bot, and then select button "API Token".Example:
+
+![Снимок2](https://user-images.githubusercontent.com/31220669/77857239-fe4b3a00-7204-11ea-87b0-7f45defc1170.PNG)
+
+![Снимок 3PNG](https://user-images.githubusercontent.com/31220669/77857243-01dec100-7205-11ea-93fa-50d83bc4670d.PNG)
+
+![Снимок3](https://user-images.githubusercontent.com/31220669/77857248-04411b00-7205-11ea-9e6d-0ae54248e6a3.PNG)
+
+When you finish all this actions, you can set webhook to your bot.For this you need to use bot api method setWebhook:
+
+![Снимок8](https://user-images.githubusercontent.com/31220669/77857325-731e7400-7205-11ea-9130-252cbbb32585.PNG)
+
+Then, if you done all right, you will see this answer:
+
+![Снимок4](https://user-images.githubusercontent.com/31220669/77857285-305c9c00-7205-11ea-9d4e-984c29d116e4.PNG)
+
+After that you can start working with your bot.But how I can work?You can ask me.Lets see, how.
+
 <h2 id='creating_bot'>Creating you bot</h2>
 
 How to create bot?Very easy!Just create a new bot class:
@@ -35,24 +65,26 @@ How to create bot?Very easy!Just create a new bot class:
 	$bot = new Bot('BOT_API_KEY HERE');
 ```
 
-Sooo, how to send messages?The Inquiry class will help us with it.Check example:
+So, lets create a script, who will send a text message as test.But how?The Inquiry class will help us with it:
 
 ```php
 	use \Telbot\Bot as Bot;
 	use \Telbot\Inquiry as Inquiry;
 	use \Telbot\InputHandle as InputHandle;
 
-	$bot = new Bot('BOT_API_KEY HERE');
+	$bot = new Bot('API_TOKEN');
 	$InputHandle = new InputHandle();
 
 	Inquiry::send($bot
 			,'sendMessage',
 		[
-			'chat_id' => $ih->getChatId(),
+			'chat_id' => $InputHandle->getChatId(),
 			'text' => 'Testing your bot.'
 		]
 	);
 ```
+
+![Снимок](https://user-images.githubusercontent.com/31220669/77940068-ca354f00-72c0-11ea-9756-0b0a3b030594.PNG)
 
 <h2 id='utils'>Utils</h2>
 
@@ -61,13 +93,16 @@ Sooo, how to send messages?The Inquiry class will help us with it.Check example:
 Using class Context from Utils namespace you can create context dependence:
 
 ```php
-	use \Telegram\Utils\Context as Context; //We include new class Context
-	use \Telegram\Bot as Bot;
-	use \Telegram\Inquiry as Inquiry;
+	use \Telbot\Context as Context; //We include new class Context
+	use \Telbot\Bot as Bot;
+	use \Telbot\Inquiry as Inquiry;
 	use \Telbot\InputHandle as InputHandle;
 	
 	$InputHandle = new InputHandle();
-	$bot = new Bot('927752546:AAGAnR8H_Aly22V-fIJEVE8srmRTzd_piYs');
+	$bot = new Bot('API_TOKEN');
+	$DBH = new PDO();
+	$bot->externalPDO($DBH);
+	$bot->enableSql();
 
 	if(!Context::read($bot, $InputHandle->getChatId())){ //reading context
 		Inquiry::send($bot
@@ -77,50 +112,55 @@ Using class Context from Utils namespace you can create context dependence:
 				'text' => 'Write smth'
 			]
 		);
-		Context::write($bot, $data->message->chat->id, 'smth'); //creating new context
+		Context::write($bot, $InputHandle->getChatId(), 'smth'); //creating new context
 	}else{
 		Inquiry::send($bot
 			,'sendMessage',
 			[
-			'chat_id' => $ih->getChatId(),
+			'chat_id' => $InputHandle->getChatId(),
 			'text' => 'Okay, you writed!'
 			]
 		);
-		Context::delete($bot, $data->message->chat->id); //delete context
+		Context::delete($bot, $InputHandle->getChatId()); //delete context
 	}
 ```
+
+![Снимок2](https://user-images.githubusercontent.com/31220669/77940072-cd303f80-72c0-11ea-837e-903d9c83020e.PNG)
 
 <b id='utils_keyboard'>Creating Keyboard</b>
 
 You can create keyboards easy using this way:
 
 ```php
-	use \Telegram\Utils\ as Utils;
-	use \Telegram\Bot as Bot;
+	use \Telbot\Utils\ as Utils;
+	use \Telbot\Bot as Bot;
 
-	Utils::buildInlineKeyboard('keyboard', [ [ ['Smth'], ['Smth2'] ], [ ['smth3'], ['smth4'] ] ])
+	Utils::buildInlineKeyboard([[['one', 'text']], [['two', 'text']], [['three', 'test']]])
 
-	Utils::buildKeyboard('inline_keyboard', [ [ ['Smth'], ['Smth2'] ] ])
+	Utils::buildKeyboard([[['third'], ['second'], ['first']]])
 ```
 
 Examples:
 
 ```php
 
-	use \Telegram\Utils\ as Utils;
-	use \Telegram\Bot as Bot;
+	use \Telbot\Utils as Utils;
+	use \Telbot\Bot as Bot;
 	use \Telbot\InputHandle as InputHandle;
-	use \Telegram\Inquiry as Inquiry;
+	use \Telbot\Inquiry as Inquiry;
 
-	$bot = new Bot('927752546:AAGAnR8H_Aly22V-fIJEVE8srmRTzd_piYs');
+	$bot = new Bot('API_TOKEN');
 	$InputHandle = new InputHandle();
 
 	Inquiry::send($bot, 'sendMessage', [
 		'chat_id' => $InputHandle->getChatId(),
-		'reply_markup' => Utils::buildInlineKeyboard([['one']], [['two'], ['three']])
+		'text' => 'Simple text.',
+		'reply_markup' => Utils::buildInlineKeyboard([[['one', 'callback']], [['two', 'callback']], [['three', 'callback']]])
 	]);
 
 ```
+
+![Снимок3](https://user-images.githubusercontent.com/31220669/77940081-d02b3000-72c0-11ea-9300-3d035a16625b.PNG)
 
 <h2 id='mysql_features'>Mysql features</h2>
 
@@ -264,16 +304,11 @@ Lets see some examples:
 ```php
 	Inquiry::answerInlineQuery($bot, [
 		'inline_query_id' => $InputHandle->getInlineQueryId(),
-		'results' => [
-			[
-				'type' => 'article', //creating an array of InlineQueryResultArticle object
-				'id' => 123123,
-				'title' => 'test',
-				'input_message_content' => [
-					'message_text' => 'Yes, its just test'
-				]
-			]
-		]
+		'results' => Utils::buildInlineQueryResult('article', [
+		'title' => 'test',
+		'input_message_content' => [
+			'message_text' => 'Yes, its just test'
+		]])
 	]);
 ```
 
