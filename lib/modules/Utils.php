@@ -9,17 +9,6 @@
 
 namespace Telbot;
 
-/*
-
-Class Utils - various useful library tools.
-
-@method static buildInlineQueryResult(string $resultType, array $data) - building InlineQueryResult object(https://core.telegram.org/bots/api#inlinequeryresult)
-@method static buildKeyboard(array $data) - building keyboard(https://core.telegram.org/bots/api#replykeyboardmarkup)
-@method static buildInlineKeyboard(array $data) - building inline keyboard(https://core.telegram.org/bots/api#inlinekeyboardmarkup)
-@method static encodeFile(string $filePath) - encoding file to CURLFile object
-
-*/
-
 use CURLFile;
 
 Class Utils{
