@@ -14,10 +14,10 @@ class Inquiry {
 	public static function send($bot , $method, $data) {
 
 		$canSended = [
-				    'getMe'
-					'sendMessage'
-					'Formatting options'
-					'forwardMessage'
+				    'getMe',
+					'sendMessage',
+					'Formatting options',
+					'forwardMessage',
 					'sendPhoto',
 					'sendAudio',
 					'sendDocument',
@@ -59,6 +59,7 @@ class Inquiry {
 					'answerCallbackQuery',
 					'setMyCommands',
 					'getMyCommands',
+					'deleteMessage'
 		];
 
 		$url = 'https://api.telegram.org/bot'.$bot->getToken().'/'.$method.'?';
@@ -72,7 +73,7 @@ class Inquiry {
 		}
 
 		if($finded == false){
-			return new \Error('Unknown telegram method');
+			throw new \Error('Unknown telegram method');
 		}
 
 		foreach($data as $key=>$value) {

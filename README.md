@@ -6,10 +6,10 @@
 	<ul>
 		<li><a href = '#creating_bot'>Creating you bot</a></li>
 	</ul>
+	<li><a href="#context">Context</a></li>
 	<li>
 		<a href = '#utils'><b>Utils</b></a>
 		<ul>
-			<li><a href="#utils_context">Context</a></li>
 			<li><a href="#utils_keyboard">Creating keyboard</a></li>
 			<li><a href="#utils_encoding">Encoding files</a></li>
 			<li><a href="#utils_inline_query_result">Building inline query result</a></li>
@@ -105,11 +105,9 @@ So, lets create a script, who will send a text message as test.But how?The Inqui
 
 ![Снимок](https://user-images.githubusercontent.com/31220669/77940068-ca354f00-72c0-11ea-9756-0b0a3b030594.PNG)
 
-<h2 id='utils'>Utils</h2>
+<h2 id='context'>Context</h2>
 
-<b id='utils_context'>Context</b>
-
-Using class Context from Utils namespace you can create context dependence:
+Using class Context you can create context dependence:
 
 ```php
 	use \Telbot\Context as Context; //We include new class Context
@@ -123,7 +121,7 @@ Using class Context from Utils namespace you can create context dependence:
 	$bot->externalPDO($DBH);
 	$bot->enableSql();
 
-	if(!Context::read($bot, $InputHandle->getChatId())){ //reading context
+	if(!Context::read($bot, $InputHandle->getChatId(), $InputHandle->getUserId())){ //reading context
 		Inquiry::send($bot
 				,'sendMessage',
 			[
@@ -131,7 +129,7 @@ Using class Context from Utils namespace you can create context dependence:
 				'text' => 'Write smth'
 			]
 		);
-		Context::write($bot, $InputHandle->getChatId(), 'smth'); //creating new context
+		Context::write($bot, $InputHandle->getChatId(), $InputHandle->getUserId(), 'smth'); //creating new context
 	}else{
 		Inquiry::send($bot
 			,'sendMessage',
@@ -140,13 +138,18 @@ Using class Context from Utils namespace you can create context dependence:
 			'text' => 'Okay, you writed!'
 			]
 		);
-		Context::delete($bot, $InputHandle->getChatId()); //delete context
+		Context::delete($bot, $InputHandle->getChatId(), $InputHandle->getUserId()); //delete context
 	}
 ```
 
 ![Снимок2](https://user-images.githubusercontent.com/31220669/77940072-cd303f80-72c0-11ea-837e-903d9c83020e.PNG)
 
-<b id='utils_keyboard'>Creating keyboard</b>
+
+<h2 id='utils'>Utils</h2>
+
+Supporting class for ease of work with telegram bot api types.
+
+<h2 id='utils_keyboard'>Creating keyboard</h2>
 
 You can create keyboards easy using this way:
 
@@ -184,14 +187,13 @@ Examples:
 <h2 id='#utils_encoding'>Encoding files</h2>
 
 If you want to send video or photo to user, you need to encode them to CURl format.For this use this method:
-
 ```php
 
 	Utils::encodeFile($filePath) //return encoded CURlfile object.
 
 ```
 
-parameter $filePath need to indicate path or href to this file.
+Parameter $filePath need to indicate path to file you want to send.
 
 <h2 id='utils_inline_query_result'>Building inline query result</h2>
 
