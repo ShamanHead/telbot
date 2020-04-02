@@ -42,7 +42,7 @@
 		<a href="#privilege"><b>Privilege</b></a>
 	</li>
 	<li><a href="#examples"><b>Examples</b></a></li>
-	<li><a href="#credits"><b>Credits</b></a></li>
+	<li><a href="#license"><b>License</b></a></li>
 </ul>
 
 <h2 id = 'introducion'>Introducion</h2>
@@ -150,9 +150,7 @@ Examples:
 
 If you want to send video or photo to user, you need to encode them to CURl format.For this use this method:
 ```php
-
 	Utils::encodeFile($filePath) //return encoded CURlfile object.
-
 ```
 
 Parameter $filePath need to indicate path to file you want to send.
@@ -162,9 +160,7 @@ Parameter $filePath need to indicate path to file you want to send.
 If you want to send an answer to inline query, you need to build answer object.For this use this method:
 
 ```php
-
 	Utils::buildInlineQueryResult($resultType ,$data) //returns json encoded array of $data with type of result $resultType
-
 ```
 You can check example <a href="#inquiry_inline">here</a>
 
@@ -179,9 +175,7 @@ To start work with mysql, first you need to do is enable sql connection in your 
 You can also disable sql by using similar method:
 
 ```php
-	
 	$bot->disableSql();
-
 ```
 
 Warning: if your sql connection doesnt exist, you can not use this modules:User, Chat.
@@ -412,28 +406,22 @@ This class needs for comfortable work with telegram answer query.
 You can give a user a specific privilege in the chat(or all chats). This can be used to give access to certain commands to that particular user.
 
 ```php
-
 	Privilege::setToChat($bot, $value, $userId, $chatId); //for one chat
-
 ```
 
 ```php
-
 	Privilege::setToAllChats($bot, $value, $userId); //for all chats
-
 ```
 
 ```php
-
 	Privilege::get($bot, $userId); //getting a privelege
-
 ```
 
-<h2>Examples</h2>
+<h2 id='examples'>Examples</h2>
 
 See examples at 'examples' folder.
 
-<h2>License</h2>
+<h2 id='license'>License</h2>
 
 Please see the LICENSE included in this repository for a full copy of the MIT license, which this project is licensed under.
 
