@@ -375,30 +375,43 @@ This class needs for comfortable work with telegram answer query.
 
 	$InputHandle->getQueryType() // returns a query type of telegram answer query(callback_query,inline_query,message).
 
-	$InputHandle->newChatMember() // returns true when new member comes to telegram chat.
-
-	$InputHandle->getMessageText() // returns a text of message.
-
-	$InputHandle->getChatId() // returns a chat id, where the message come.
-
 	$InputHandle->getInstance() // returns an array of telegram answer.
 
 	$InputHandle->getCallbackData() //  returns a callback data from telegram answer query.
 
 	$InputHandle->getCallBackQueryId() // returns a callback query id from telegram answer query.
 
-	$InputHandle->getInlineQueryId() // returns an inline query in from telegram answer query.
-
 	$InputHandle->getUserId() // returns user id.
+
+	$InputHandle->userIsBot() // return true if user who send quiry is bot.
+
+	$InputHandle->getUserName() // returns name of user, who sends query.
+
+	$InputHandle->getMessageId() // returns user's message id.
+
+	$InputHandle->getUserFirstName() // returns user's first name.
+
+	$InputHandle->getLanguageCode() // returns user's language code.
 
 	$InputHandle->getChatType() // returns chat type.
 
 	$InputHandle->getChat() // returns chat array from telegram answer query.
 
+	$InputHandle->newChatMember() // returns true when new member comes to telegram chat.
+
+	$InputHandle->getChatId() // returns a chat id, where the message come.
+
 	$InputHandle->getDate() // returns date when telegram answer query was send.
 
-	$InputHandle->getEntities() // return message entities from telegram answer query.
+	$InputHandle->getEntities() // returns message entities from telegram answer query.
 
+	$InputHandle->getChatTitle() // returns title of chat where bot gets query.
+
+	$InputHandle->getInlineQueryText() // returns query data from inline query.
+
+	$InputHandle->getInlineQueryOffset() // returns query offset from inline query.
+
+	$InputHandle->getInlineQueryId() // returns an inline query in from telegram answer query.
 ```
 
 <h2 id='privelege'>Privelege</h2>
