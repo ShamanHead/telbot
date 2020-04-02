@@ -34,7 +34,7 @@ if(!$context) Context::write($bot, $InputHandle->getChatId(), $InputHandle->getU
 if(isset($context) && ((date('U') - $context) < $delay) ){ //if context exists and if the message arrived earlier than 2 seconds after the last message
 	Inquiry::send($bot, 'deleteMessage', [ //deleting user message
 		'chat_id' => $InputHandle->getChatId(),
-		'message_id' => $InputHandle->getInstance()->message_id
+		'message_id' => $InputHandle->getMessageId()
 	]);
 	Inquiry::send($bot, 'sendMessage', [ //displaying an error
 		'chat_id' => $InputHandle->getChatId(),
@@ -43,7 +43,7 @@ if(isset($context) && ((date('U') - $context) < $delay) ){ //if context exists a
 	sleep($delay);
 	Inquiry::send($bot, 'deleteMessage', [ //and delete error message
 		'chat_id' => $InputHandle->getChatId(),
-		'message_id' => $InputHandle->getInstance()->message_id + 1
+		'message_id' => $InputHandle->getMessageId() + 1
 	]);
 }else{
 	Context::write($bot, $InputHandle->getChatId(), $InputHandle->getUserId(), date('U')); //if the message arrived later than 2 seconds after the last message we sets a new context with current time
