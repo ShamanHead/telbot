@@ -6,7 +6,6 @@
 	<ul>
 		<li><a href = '#creating_bot'>Creating you bot</a></li>
 	</ul>
-	<li><a href="#context">Context</a></li>
 	<li>
 		<a href = '#utils'><b>Utils</b></a>
 		<ul>
@@ -18,7 +17,7 @@
 	<li>
 		<a href = '#mysql_features'><b>Mysql features</b></a>
 		<ul>
-			<li> <a href="#mysql_users">Users</a>
+			<li><a href="#context">Context</a></li>
 			<li> <a href="#mysql_chats">Chats</a>
 		</ul>
 	</li>
@@ -107,46 +106,6 @@ So, lets create a script, who will send a text message as test.But how?The Inqui
 ```
 
 ![Снимок](https://user-images.githubusercontent.com/31220669/77940068-ca354f00-72c0-11ea-9756-0b0a3b030594.PNG)
-
-<h2 id='context'>Context</h2>
-
-Using class Context you can create context dependence:
-
-```php
-	use \Telbot\Context as Context; //We include new class Context
-	use \Telbot\Bot as Bot;
-	use \Telbot\Inquiry as Inquiry;
-	use \Telbot\InputHandle as InputHandle;
-	
-	$InputHandle = new InputHandle();
-	$bot = new Bot('API_TOKEN');
-	$DBH = new PDO();
-	$bot->externalPDO($DBH);
-	$bot->enableSql();
-
-	if(!Context::read($bot, $InputHandle->getChatId(), $InputHandle->getUserId())){ //reading context
-		Inquiry::send($bot
-				,'sendMessage',
-			[
-				'chat_id' => $InputHandle->getChatId(),
-				'text' => 'Write smth'
-			]
-		);
-		Context::write($bot, $InputHandle->getChatId(), $InputHandle->getUserId(), 'smth'); //creating new context
-	}else{
-		Inquiry::send($bot
-			,'sendMessage',
-			[
-			'chat_id' => $InputHandle->getChatId(),
-			'text' => 'Okay, you writed!'
-			]
-		);
-		Context::delete($bot, $InputHandle->getChatId(), $InputHandle->getUserId()); //delete context
-	}
-```
-
-![Снимок2](https://user-images.githubusercontent.com/31220669/77940072-cd303f80-72c0-11ea-837e-903d9c83020e.PNG)
-
 
 <h2 id='utils'>Utils</h2>
 
@@ -249,39 +208,45 @@ Or you can indicate your external pdo connection as sql credentials:
 
 After all this actions, you can start to work with database.
 
-<h2 id = 'mysql_users'>Working with users in database</h2>
+<h2 id='context'>Context</h2>
 
-To add user to database, you need to use this function:
-
-```php
-	User::add($bot, $userId);
-```
-
-To delete user:
+Using class Context you can create context dependence:
 
 ```php
-	User::delete($bot, $userId);
+	use \Telbot\Context as Context; //We include new class Context
+	use \Telbot\Bot as Bot;
+	use \Telbot\Inquiry as Inquiry;
+	use \Telbot\InputHandle as InputHandle;
+	
+	$InputHandle = new InputHandle();
+	$bot = new Bot('API_TOKEN');
+	$DBH = new PDO();
+	$bot->externalPDO($DBH);
+	$bot->enableSql();
+
+	if(!Context::read($bot, $InputHandle->getChatId(), $InputHandle->getUserId())){ //reading context
+		Inquiry::send($bot
+				,'sendMessage',
+			[
+				'chat_id' => $InputHandle->getChatId(),
+				'text' => 'Write smth'
+			]
+		);
+		Context::write($bot, $InputHandle->getChatId(), $InputHandle->getUserId(), 'smth'); //creating new context
+	}else{
+		Inquiry::send($bot
+			,'sendMessage',
+			[
+			'chat_id' => $InputHandle->getChatId(),
+			'text' => 'Okay, you writed!'
+			]
+		);
+		Context::delete($bot, $InputHandle->getChatId(), $InputHandle->getUserId()); //delete context
+	}
 ```
 
-To get user:
+![Снимок2](https://user-images.githubusercontent.com/31220669/77940072-cd303f80-72c0-11ea-837e-903d9c83020e.PNG)
 
-```php
-	User::get($bot, $userId);
-```
-
-This function returns array with row information of this user(row id, chat id, bot token)
-
-To get all users:
-
-```php
-	User::getAll($bot);
-```
-You can send message to all active users by using this function:
-
-```php
-	User::sendToAll($bot, $method, $data);
-```
-Data variable contains method parameters(for help see <a href='#sending_queries'>sending methods</a>)
 
 <h2 id = 'mysql_chats'>Working with chats in database</h2>
 
