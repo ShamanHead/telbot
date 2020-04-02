@@ -16,7 +16,6 @@ class Inquiry {
 		$canSended = [
 				    'getMe',
 					'sendMessage',
-					'Formatting options',
 					'forwardMessage',
 					'sendPhoto',
 					'sendAudio',
@@ -59,7 +58,27 @@ class Inquiry {
 					'answerCallbackQuery',
 					'setMyCommands',
 					'getMyCommands',
-					'deleteMessage'
+					'editMessageText',
+					'editMessageCaption',
+					'editMessageMedia',
+					'editMessageReplyMarkup',
+					'stopPoll',
+					'deleteMessage',
+					'sendSticker',
+					'getStickerSet',
+					'uploadStickerFile',
+					'createNewStickerSet',
+					'addStickerToSet',
+					'setStickerPositionInSet',
+					'deleteStickerFromSet',
+					'setStickerSetThumb',
+					'sendInvoice',
+					'answerShippingQuery',
+					'answerPreCheckoutQuery',
+					'setPassportDataErrors',
+					'sendGame',
+					'setGameScore',
+					'getGameHighScores'
 		];
 
 		$url = 'https://api.telegram.org/bot'.$bot->getToken().'/'.$method.'?';

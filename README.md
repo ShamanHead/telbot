@@ -39,6 +39,9 @@
 			<li><a href="#input_handle_working">Working with data</a></li>
 		</ul>
 	</li>
+	<li>
+		<a href="#privilege"><b>Privilege</b></a>
+	</li>
 	<li><a href="#examples"><b>Examples</b></a></li>
 	<li><a href="#credits"><b>Credits</b></a></li>
 </ul>
@@ -438,6 +441,29 @@ This class needs for comfortable work with telegram answer query.
 	$InputHandle->getEntities() // return message entities from telegram answer query.
 
 ```
+
+<h2 id='privelege'>Privelege</h2>
+
+You can give a user a specific privilege in the chat(or all chats). This can be used to give access to certain commands to that particular user.
+
+```php
+
+	Privilege::setToChat($bot, $value, $userId, $chatId); //for one chat
+
+```
+
+```php
+
+	Privilege::setToAllChats($bot, $value, $userId); //for all chats
+
+```
+
+```php
+
+	Privilege::get($bot, $userId); //getting a privelege
+
+```
+
 <h2>Examples</h2>
 
 See examples at 'examples' folder.

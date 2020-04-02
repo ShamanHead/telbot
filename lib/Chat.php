@@ -116,7 +116,7 @@ class Chat{
 	public static function sendToAll($bot, $method, $data){
 		if(!$bot->sqlConnectionPosibility) return false;
 
-		$allUsers = self::getAllActiveChats($bot);
+		$allUsers = self::getAll($bot);
 
 		for($i = 0;$i < count($allUsers);$i++){
 			$data['chat_id'] = $allUsers[$i]['userId'];
