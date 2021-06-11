@@ -1,0 +1,15 @@
+{
+    "name": "shamanhead/telbot",
+    "type": "library",
+    "description": "A simple library to create message bot in telegram",
+    "keywords": ["php","telegram","bot","telegramapi","package"],
+    "homepage": "https://packagist.org/packages/shamanhead/telbot",
+    "license": "MIT",
+    "minimum-stability": "stable",
+     "require": {
+        "php": ">=7.2",
+    },
+    "autoload": {
+        "classmap": ["lib/"]
+    }
+}
