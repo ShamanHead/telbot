@@ -32,9 +32,9 @@ class InputHandle{
 
 	function __clone(){}
 
-	public function getUpdateId(){
-		return $this->inputData->updateId;
-	}
+	// public function getUpdateId(){
+	// 	return $this->inputData->updateId;
+	// }
 
 	public function getQueryType(){
 		return $this->queryType;
