@@ -1,10 +1,10 @@
 <?php
 
-/*						  
-	Copyright© Arseniy Romanovskiy aka ShamanHead     
-	This file is part of Telbot package		  
-	Created by ShamanHead				  
-	Mail: arsenii.romanovskii85@gmail.com	     	  						  
+/*
+	Copyright© Arseniy Romanovskiy aka ShamanHead
+	This file is part of Telbot package
+	Created by ShamanHead
+	Mail: arsenii.romanovskii85@gmail.com
 */
 
 namespace Telbot;
@@ -27,7 +27,7 @@ class InputHandle{
 			$this->inputData = $inputData->inline_query;
 			$this->queryType = 'inline_query';
 		}
-		$this->inputData->updateId = $inputData->update_id;
+		//$this->inputData->updateId = $inputData->update_id;
 	}
 
 	function __clone(){}
