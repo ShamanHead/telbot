@@ -65,7 +65,7 @@ Class Utils{
 		for($i = 0;$i<count($data);$i++){
 			array_push($kbd['inline_keyboard'], []);
 			for($j = 0;$j<count($data[$i]);$j++){
-				array_push($kbd['inline_keyboard'][$i], [ $data[$i][$j][0] => $data[$i][$j][1], 'callback_data' =>  $data[$i][$j][2]]);
+				array_push($kbd['inline_keyboard'][$i], [ $data[$i][$j]);
 			}
 		}
 		return $kbd;
