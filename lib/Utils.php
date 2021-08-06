@@ -10,7 +10,7 @@
 namespace Telbot;
 
 use CURLFile;
-
+//
 Class Utils{
 
 	public static function buildInlineQueryResult($resultType ,$data) {
