@@ -27,14 +27,14 @@ class InputHandle{
 			$this->inputData = $inputData->inline_query;
 			$this->queryType = 'inline_query';
 		}
-		//$this->inputData->updateId = $inputData->update_id;
+		//$this->inputData->updateId = $inputData->update_id ?? false;
 	}
 
 	function __clone(){}
 
-	// public function getUpdateId(){
-	// 	return $this->inputData->updateId;
-	// }
+	public function getUpdateId(){
+		return $this->inputData->updateId;
+	}
 
 	public function getQueryType(){
 		return $this->queryType;
